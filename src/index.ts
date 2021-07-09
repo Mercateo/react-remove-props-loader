@@ -1,14 +1,28 @@
-import { LoaderContext } from "webpack";
+import { LoaderDefinitionFunction } from "webpack";
 import { SyntaxKind, ts } from "ts-morph";
 import { project } from "./project";
 import { tempFileName } from "./constants";
 
+/**
+ * Options supported by the loader.
+ */
 export interface LoaderOptions {
+  /** An array of props to remove from React components. */
   props: string[];
+  /** The kind of script to remove the React props from. For example, `ts.ScriptKind.TSX`. */
   scriptKind?: ts.ScriptKind;
 }
 
-function loader(this: LoaderContext<LoaderOptions>, contents: string): string {
+/**
+ * Webpack loader for removing specified attributes/props from React components.
+ * @param this Context of the loader which can be used to get the options.
+ * @param contents Contents of the file to be transformed.
+ * @returns Transformed contents of the file
+ */
+const loader: LoaderDefinitionFunction<LoaderOptions> = function (
+  this,
+  contents
+) {
   const options = this.getOptions();
   const propsToRemove = options.props || [];
   const scriptKind = options.scriptKind ?? ts.ScriptKind.JSX;
@@ -32,6 +46,6 @@ function loader(this: LoaderContext<LoaderOptions>, contents: string): string {
   fs.deleteSync(tempFileName);
 
   return contents;
-}
+};
 
 export default loader;

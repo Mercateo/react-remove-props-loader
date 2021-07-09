@@ -1,11 +1,15 @@
 {
-  "name": "typescript-loader-react-remove-props",
+  "name": "react-remove-props-loader",
   "version": "1.0.0",
-  "description": "Webpack loader for removing React props in TypeScript code.",
+  "description": "Webpack loader for removing React props in TypeScript/JavaScript code.",
   "main": "dist/index",
-  "repository": "https://github.com/9inpachi/typescript-loader-react-remove-props.git",
+  "repository": "https://github.com/Mercateo/react-remove-props-loader.git",
   "author": "Fawad Ali <m.fawaadali98@gmail.com>",
   "license": "MIT",
+  "files": [
+    "dist",
+    "!dist/*.js.map"
+  ],
   "scripts": {
     "clean": "rm -rf dist",
     "build": "yarn clean && tsc",
