@@ -1,18 +1,35 @@
 import { LoaderContext } from "webpack";
+import { SyntaxKind, ts } from "ts-morph";
+import { project } from "./ts-morph-project";
 
-export type LoaderOptions = {
+export interface LoaderOptions {
   props: string[];
-};
+  scriptKind?: ts.ScriptKind;
+}
 
-function loader(this: LoaderContext<LoaderOptions>, contents: string) {
+function loader(this: LoaderContext<LoaderOptions>, contents: string): string {
   const options = this.getOptions();
-	const props = options.props || []
+  const propsToRemove = options.props || [];
+  const scriptKind = options.scriptKind ?? ts.ScriptKind.JSX;
+  const sourceFile = project.createSourceFile(tempFileName, contents, {
+    scriptKind,
+  });
 
-	props.forEach(prop => {
-		contents = contents.replace(new RegExp(`${prop}=("|{).*?("|})(?=\\s|>)`, "g"), "")
-	})
+  const jsxAttributes = sourceFile.getDescendantsOfKind(
+    SyntaxKind.JsxAttribute
+  );
+  for (const attribute of jsxAttributes) {
+    if (propsToRemove.includes(attribute.getName())) {
+      attribute.remove();
+    }
+  }
+  sourceFile.saveSync();
 
-	return contents
+  const fs = project.getFileSystem();
+  contents = fs.readFileSync(tempFileName);
+  fs.deleteSync(tempFileName);
+
+  return contents;
 }
 
 export default loader;
