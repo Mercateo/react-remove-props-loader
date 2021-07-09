@@ -2,7 +2,7 @@
   "name": "typescript-loader-react-remove-props",
   "version": "1.0.0",
   "description": "Webpack loader for removing React props in TypeScript code.",
-  "main": "index.js",
+  "main": "dist/index",
   "repository": "https://github.com/9inpachi/typescript-loader-react-remove-props.git",
   "author": "Fawad Ali <m.fawaadali98@gmail.com>",
   "license": "MIT",

@@ -1,1 +1,1 @@
-const tempFileName = "placeholder";
+export const tempFileName = "placeholder";

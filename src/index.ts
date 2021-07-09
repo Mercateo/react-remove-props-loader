@@ -1,6 +1,7 @@
 import { LoaderContext } from "webpack";
 import { SyntaxKind, ts } from "ts-morph";
-import { project } from "./ts-morph-project";
+import { project } from "./project";
+import { tempFileName } from "./constants";
 
 export interface LoaderOptions {
   props: string[];
@@ -13,6 +14,7 @@ function loader(this: LoaderContext<LoaderOptions>, contents: string): string {
   const scriptKind = options.scriptKind ?? ts.ScriptKind.JSX;
   const sourceFile = project.createSourceFile(tempFileName, contents, {
     scriptKind,
+    overwrite: true,
   });
 
   const jsxAttributes = sourceFile.getDescendantsOfKind(
