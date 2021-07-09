@@ -7,9 +7,12 @@
   "author": "Fawad Ali <m.fawaadali98@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn tsc"
+    "clean": "rm -rf dist",
+    "build": "yarn clean && tsc",
+    "start": "yarn build --sourceMap true --watch"
   },
   "devDependencies": {
+    "ts-morph": "^11.0.2",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.5",
     "webpack": "^5.44.0"
