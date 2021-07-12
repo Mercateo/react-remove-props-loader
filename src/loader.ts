@@ -1,4 +1,4 @@
-import { LoaderDefinitionFunction } from "webpack";
+import type { LoaderDefinitionFunction } from "webpack";
 import { ScriptKind, SyntaxKind } from "ts-morph";
 import { project } from "./project";
 
