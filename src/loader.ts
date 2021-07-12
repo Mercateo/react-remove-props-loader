@@ -1,5 +1,5 @@
 import { LoaderDefinitionFunction } from "webpack";
-import { ScriptKind, SyntaxKind, ts } from "ts-morph";
+import { ScriptKind, SyntaxKind } from "ts-morph";
 import { project } from "./project";
 
 export interface LoaderOptions {
@@ -15,7 +15,8 @@ const loader: LoaderDefinitionFunction<LoaderOptions> = function (
 ) {
   const options = this.getOptions();
   const propsToRemove = options.props || [];
-  const scriptKind = options.scriptKind ?? ScriptKind.JSX;
+  if (propsToRemove.length === 0) return contents;
+  const scriptKind = options.scriptKind ?? ScriptKind.Unknown;
   const sourceFile = project.createSourceFile(this.resourcePath, contents, {
     scriptKind,
     overwrite: true,
