@@ -1,6 +1,6 @@
 {
   "name": "react-remove-props-loader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Webpack loader for removing React props or JSX attributes in TypeScript/JavaScript code.",
   "main": "dist/index",
   "repository": "https://github.com/Mercateo/react-remove-props-loader.git",
