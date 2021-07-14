@@ -27,7 +27,7 @@ module.exports = {
             loader: "react-remove-props-loader",
             options: {
               props: ["data-testid", "data-test-id"],
-              // Optionally, set the kind of the script. Defaults to `ScriptKind.Unknown`.
+              // Optionally, set the kind of the script. Defaults to `ScriptKind.JSX`.
               scriptKind: ScriptKind.TSX,
             },
           },

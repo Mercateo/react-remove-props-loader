@@ -11,19 +11,19 @@ export interface LoaderOptions {
 
 const loader: LoaderDefinitionFunction<LoaderOptions> = function (
   this,
-  contents
+  content,
 ) {
   const options = this.getOptions();
-  const propsToRemove = options.props || [];
-  if (propsToRemove.length === 0) return contents;
-  const scriptKind = options.scriptKind ?? ScriptKind.Unknown;
-  const sourceFile = project.createSourceFile(this.resourcePath, contents, {
+  const propsToRemove = options.props;
+  if (propsToRemove.length === 0) return content;
+  const scriptKind = options.scriptKind ?? ScriptKind.JSX;
+  const sourceFile = project.createSourceFile(this.resourcePath, content, {
     scriptKind,
     overwrite: true,
   });
 
   const jsxAttributes = sourceFile.getDescendantsOfKind(
-    SyntaxKind.JsxAttribute
+    SyntaxKind.JsxAttribute,
   );
   for (const attribute of jsxAttributes) {
     if (propsToRemove.includes(attribute.getName())) {
@@ -33,10 +33,10 @@ const loader: LoaderDefinitionFunction<LoaderOptions> = function (
   sourceFile.saveSync();
 
   const fs = project.getFileSystem();
-  contents = fs.readFileSync(this.resourcePath);
+  content = fs.readFileSync(this.resourcePath);
   fs.deleteSync(this.resourcePath);
 
-  return contents;
+  return content;
 };
 
 export default loader;
