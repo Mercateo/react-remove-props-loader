@@ -1,5 +1,8 @@
 # React Remove Props Loader
 
+[![Version](https://img.shields.io/npm/v/react-remove-props-loader.svg)](https://www.npmjs.com/package/react-remove-props-loader)
+[![Downloads](https://img.shields.io/npm/dt/react-remove-props-loader.svg)](https://www.npmjs.com/package/react-remove-props-loader)
+
 A webpack loader for removing React props or JSX attributes in TypeScript/JavaScript code.
 
 ## Install
