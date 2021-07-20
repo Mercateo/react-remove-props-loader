@@ -17,7 +17,7 @@ describe("react-remove-props-loader", () => {
     };
     const loaderThis = mockLoaderThis(options);
 
-    const transpiledCode = loader.bind(loaderThis)(code);
+    const transpiledCode = loader.apply(loaderThis, [code]);
     const expectedCode = code.replace(
       ` test-attribute="test-value" test-attribute-2={testVar}`,
       "",
@@ -34,7 +34,7 @@ describe("react-remove-props-loader", () => {
     };
     const loaderThis = mockLoaderThis(options);
 
-    const transpiledCode = loader.bind(loaderThis)(code);
+    const transpiledCode = loader.apply(loaderThis, [code]);
     expect(transpiledCode).toBe(code);
   });
 
@@ -48,7 +48,7 @@ describe("react-remove-props-loader", () => {
     };
     const loaderThis = mockLoaderThis(options);
 
-    const transpiledCode = loader.bind(loaderThis)(code);
+    const transpiledCode = loader.apply(loaderThis, [code]);
     const expectedCode = code.replace(` test-attribute="test-value"`, "");
     expect(transpiledCode).toBe(expectedCode);
   });
