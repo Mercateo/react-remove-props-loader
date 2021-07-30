@@ -14,11 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@main
-        run: yarn install
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Setup
+        run: yarn install
 
       - name: Test
         run: yarn test:coverage

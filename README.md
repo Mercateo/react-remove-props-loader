@@ -2,6 +2,7 @@
 
 [![Version](https://img.shields.io/npm/v/react-remove-props-loader.svg)](https://www.npmjs.com/package/react-remove-props-loader)
 [![Downloads](https://img.shields.io/npm/dt/react-remove-props-loader.svg)](https://www.npmjs.com/package/react-remove-props-loader)
+[![CI](https://github.com/Mercateo/react-remove-props-loader/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Mercateo/react-remove-props-loader/actions/workflows/main.yml?query=branch%3Amaster)
 
 A webpack loader for removing React props or JSX attributes in TypeScript/JavaScript code.
 
