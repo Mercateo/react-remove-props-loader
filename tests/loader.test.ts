@@ -20,7 +20,7 @@ describe("react-remove-props-loader", () => {
     const transpiledCode = loader.apply(loaderThis, [code]);
     const expectedCode = code.replace(
       ` test-attribute="test-value" test-attribute-2={testVar}`,
-      "",
+      ""
     );
     expect(transpiledCode).toBe(expectedCode);
   });
@@ -50,6 +50,21 @@ describe("react-remove-props-loader", () => {
 
     const transpiledCode = loader.apply(loaderThis, [code]);
     const expectedCode = code.replace(` test-attribute="test-value"`, "");
+    expect(transpiledCode).toBe(expectedCode);
+  });
+
+  it("should remove specified attributes from object properties", () => {
+    const code = `const TestComponent = () => {}
+      const props = { 'test-attribute': 'value' };
+      return <div {...props} />;
+    };`;
+    const options: LoaderOptions = {
+      props: ["test-attribute", "test-attribute-2"],
+    };
+    const loaderThis = mockLoaderThis(options);
+
+    const transpiledCode = loader.apply(loaderThis, [code]);
+    const expectedCode = code.replace(` 'test-attribute': 'value'`, "");
     expect(transpiledCode).toBe(expectedCode);
   });
 });

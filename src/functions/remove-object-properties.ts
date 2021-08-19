@@ -9,7 +9,8 @@ export const removeObjectProperties = (
   );
 
   for (const property of objectProps) {
-    if (objectPropsToRemove.includes(property.getName())) {
+    const propertyName = property.getName().replace(/['"]+/g, "");
+    if (objectPropsToRemove.includes(propertyName)) {
       property.remove();
     }
   }
