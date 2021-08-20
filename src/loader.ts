@@ -1,8 +1,6 @@
 import type { LoaderDefinitionFunction } from "webpack";
-import { ScriptKind } from "ts-morph";
+import { ScriptKind, SyntaxKind } from "ts-morph";
 import { project } from "./project";
-import { removeJsxAttributes } from "./functions/remove-jsx-attributes";
-import { removeObjectProperties } from "./functions/remove-object-properties";
 
 export interface LoaderOptions {
   /** An array of props to remove from React components. */
@@ -24,8 +22,21 @@ const loader: LoaderDefinitionFunction<LoaderOptions> = function (
     overwrite: true,
   });
 
-  removeJsxAttributes(sourceFile, propsToRemove);
-  removeObjectProperties(sourceFile, propsToRemove);
+  const jsxAttributes = sourceFile.getDescendantsOfKind(
+    SyntaxKind.JsxAttribute
+  );
+  const objectProps = sourceFile.getDescendantsOfKind(
+    SyntaxKind.PropertyAssignment
+  );
+  const descendants = [...jsxAttributes, ...objectProps];
+
+  for (const descendant of descendants) {
+    const descendantName = descendant.getName().replace(/['"]+/g, "");
+    if (propsToRemove.includes(descendantName)) {
+      descendant.remove();
+    }
+  }
+
   sourceFile.saveSync();
 
   const fs = project.getFileSystem();
