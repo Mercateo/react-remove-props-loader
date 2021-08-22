@@ -31,13 +31,45 @@ module.exports = {
             loader: "react-remove-props-loader",
             options: {
               props: ["data-testid", "data-test-id"],
-              // Optionally, set the kind of the script. Defaults to `ScriptKind.JSX`.
+              // (Optional) Set the kind of the script. Defaults to `ScriptKind.JSX`.
               scriptKind: ScriptKind.TSX,
+              // (Optional) Set whether to remove specified props from objects. Defaults to `false`.
+              removeFromObjects: true,
             },
           },
         ],
       },
     ],
   },
+};
+```
+
+## Example
+
+### Source
+
+```tsx
+import React, { FC } from "react";
+
+export const ExampleComponent: FC = () => {
+  const propsObject = { "data-test-id": "example-prop" };
+  return (
+    <div data-testid="example-prop" {...propsObject}>
+      Example Component
+    </div>
+  );
+};
+```
+
+### Transformed
+
+Code transformed with the sample settings above.
+
+```tsx
+import React, { FC } from "react";
+
+export const ExampleComponent: FC = () => {
+  const propsObject = {};
+  return <div {...propsObject}>Example Component</div>;
 };
 ```
