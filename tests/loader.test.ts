@@ -60,6 +60,7 @@ describe("react-remove-props-loader", () => {
     };`;
     const options: LoaderOptions = {
       props: ["test-attribute", "test-attribute-2"],
+      removeFromObjects: true,
     };
     const loaderThis = mockLoaderThis(options);
 
