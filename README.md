@@ -69,7 +69,11 @@ Code transformed with the sample settings above.
 import React, { FC } from "react";
 
 export const ExampleComponent: FC = () => {
-  const propsObject = {};
-  return <div {...propsObject}>Example Component</div>;
+  const propsObject = { };
+  return (
+    <div {...propsObject}>
+      Example Component
+    </div>
+  );
 };
 ```
