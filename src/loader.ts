@@ -40,7 +40,11 @@ const loader: LoaderDefinitionFunction<LoaderOptions> = function (
   }
 
   for (const descendant of descendants) {
-    const descendantName = descendant.getName().replace(/['"]+/g, "");
+    const descendantName = descendant
+      .getNameNode()
+      .getText()
+      .replace(/['"]+/g, "");
+
     if (propsToRemove.includes(descendantName)) {
       descendant.remove();
     }
